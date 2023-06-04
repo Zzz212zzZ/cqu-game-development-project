@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{72E30F91-7340-F07A-0515-46D5B34704E6}") = "Tower Defense Project Unity5.5", "Assembly-CSharp.csproj", "{5BE04F37-72AB-3D14-3116-4C086D89E205}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{5BE04F37-72AB-3D14-3116-4C086D89E205}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

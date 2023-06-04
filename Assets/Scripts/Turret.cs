@@ -21,6 +21,7 @@ public class Turret : MonoBehaviour {
     }
 
     public float attackRateTime = 1; //多少秒攻击一次
+    public float basicAttackRateTime;
     private float timer = 0;
 
     public GameObject bulletPrefab;//子弹
@@ -30,6 +31,7 @@ public class Turret : MonoBehaviour {
     public bool useLaser = false;
 
     public float damageRate = 70;
+    public float basicDamageRate;
 
     public LineRenderer laserRenderer;
 
@@ -38,6 +40,9 @@ public class Turret : MonoBehaviour {
     void Start()
     {
         timer = attackRateTime;
+        basicAttackRateTime = attackRateTime;
+        basicDamageRate = damageRate;
+        StartCoroutine(Func());
     }
 
     void Update()
@@ -115,6 +120,15 @@ public class Turret : MonoBehaviour {
         for (int i = 0; i < emptyIndex.Count; i++)
         {
             enemys.RemoveAt(emptyIndex[i]-i);
+        }
+    }
+    IEnumerator Func()
+    {
+        while (true)// or for(i;i;i)
+        {
+            damageRate = GlobalRate.turrentRate * basicDamageRate;
+            attackRateTime = GlobalRate.turrentRate * basicAttackRateTime;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

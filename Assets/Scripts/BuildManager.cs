@@ -36,6 +36,7 @@ public class BuildManager : MonoBehaviour {
     void Start()
     {
         upgradeCanvasAnimator = upgradeCanvas.GetComponent<Animator>();
+        StartCoroutine(Func());
     }
 
     void Update()
@@ -153,5 +154,21 @@ public class BuildManager : MonoBehaviour {
         selectedMapCube.DestroyTurret();
         StartCoroutine(HideUpgradeUI());
     }
-     
+    // ---------------------------------------邱天 add  每个一段时间判断是否被减速-------------------------------------------------------
+    IEnumerator Func()
+    {
+        while (true)// or for(i;i;i)
+        {
+            int gainmoney = GlobalRate.gainmoney;
+
+            if (gainmoney < 0)
+            {
+                GlobalRate.gainmoney = 0;
+                ChangeMoney(-gainmoney);
+                Debug.Log("GAIN MONEY");
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    // ---------------------------------------邱天 add  每个一段时间判断是否被减速-------------------------------------------------------
 }

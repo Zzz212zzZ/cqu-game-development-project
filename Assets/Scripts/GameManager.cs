@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance;
     private EnemySpawner enemySpawner;
     bool isPaused = false;
+    bool isEnd = false;
 
 
     void Awake()
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour {
         GameObject.Find("Canvas/Wave").GetComponent<Text>().text = "";
         endUI.SetActive(true);
         endMessage.text = "胜 利";
+        isEnd = true;
     }
     public void Failed()
     {
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour {
         enemySpawner.Stop();
         endUI.SetActive(true);
         endMessage.text = "失 败";
+        isEnd = true;
     }
 
     public void OnButtonRetry()
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && isEnd==false)
         {
             isPaused = !isPaused;
            

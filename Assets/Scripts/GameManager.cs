@@ -77,7 +77,61 @@ public class GameManager : MonoBehaviour {
 
     //---------------------------------------------------------曾颉 add   PauseGame-----------------------------------------------------------------
 
+    private bool canUseProp = true;
+    IEnumerator CannotUseProp(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        canUseProp = true;
+    }
+    IEnumerator ReturnNormal(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        GlobalRate.speedRate = 1.0f;
+        GlobalRate.turrentRate = 1.0f;
+    }
+    IEnumerator OnlySlowSpeed(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        GlobalRate.speedRate = 0.5f;
+    }
+    IEnumerator WaitandGetMoney(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        GlobalRate.gainmoney = -200;
+        Debug.Log("gainmoney");
+    }
+    public void ButtonSlowDown()
+    {
+        if (canUseProp)
+        {
+            canUseProp = false;
+            GlobalRate.speedRate = 0f;
+            StartCoroutine(OnlySlowSpeed(3.0f));
+            StartCoroutine(ReturnNormal(6.0f));
+            StartCoroutine(CannotUseProp(20.0f));
+        }
 
+    }
+    public void ButtonFrenzy()
+    {
+        if (canUseProp)
+        {
+            canUseProp = false;
+            GlobalRate.turrentRate = 1.5f;
+            StartCoroutine(ReturnNormal(8.0f));
+            StartCoroutine(CannotUseProp(20.0f));
+        }
+        
+    }
+    public void GetMoney()
+    {
+        if (canUseProp)
+        {
+            canUseProp = false;
+            StartCoroutine(WaitandGetMoney(10.0f));
+            StartCoroutine(CannotUseProp(20.0f));
+        }
+    }
 
 
 }

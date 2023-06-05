@@ -7,20 +7,21 @@ public class Turret : MonoBehaviour {
     private List<GameObject> enemys = new List<GameObject>();
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Enemy")
+        if (col.tag == "enm1" || col.tag=="enm2"|| col.tag=="enm3" || col.tag=="enm4")
         {
             enemys.Add(col.gameObject);
         }
     }
     void OnTriggerExit(Collider col)
     {
-        if (col.tag == "Enemy")
+        if (col.tag == "enm1" || col.tag == "enm2" || col.tag == "enm3" || col.tag == "enm4")
         {
             enemys.Remove(col.gameObject);
         }
     }
 
     public float attackRateTime = 1; //多少秒攻击一次
+    public float basicAttackRateTime;
     private float timer = 0;
 
     public GameObject bulletPrefab;//子弹
@@ -30,18 +31,27 @@ public class Turret : MonoBehaviour {
     public bool useLaser = false;
 
     public float damageRate = 70;
+    public float basicDamageRate;
 
     public LineRenderer laserRenderer;
 
     public GameObject laserEffect;
 
+    public GameObject ExpEffect;
+
+    public bool isfrozen = false;
+
     void Start()
     {
         timer = attackRateTime;
+        basicAttackRateTime = attackRateTime;
+        basicDamageRate = damageRate;
+        StartCoroutine(Func());
     }
 
     void Update()
     {
+        if (!isfrozen)
         if (enemys.Count > 0 && enemys[0] != null)
         {
             Vector3 targetPosition = enemys[0].transform.position;
@@ -116,5 +126,36 @@ public class Turret : MonoBehaviour {
         {
             enemys.RemoveAt(emptyIndex[i]-i);
         }
+    }
+    IEnumerator Func()
+    {
+        while (true)// or for(i;i;i)
+        {
+            damageRate = GlobalRate.turrentRate * basicDamageRate;
+            attackRateTime = GlobalRate.turrentRate * basicAttackRateTime;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    //edit by zlt 实现了防御塔炸毁和被冻结
+    public void Die()
+    {
+        GameObject effect = GameObject.Instantiate(ExpEffect, transform.position, transform.rotation);
+        Destroy(effect, 1.5f);
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator ResetBool()
+    {
+        // 等待3秒钟
+        yield return new WaitForSeconds(3f);
+
+        isfrozen = false;
+    }
+
+    public void Freeze()
+    {
+        isfrozen = true;
+        StartCoroutine(ResetBool());
     }
 }

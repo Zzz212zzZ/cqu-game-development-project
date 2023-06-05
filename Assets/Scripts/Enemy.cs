@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour {
 
     public float speed = 10;
+    public float basicspeed;
     public float hp = 150;
     private float totalHp;
     public GameObject explosionEffect;
@@ -19,7 +20,10 @@ public class Enemy : MonoBehaviour {
         positions = Waypoints.positions;
         totalHp = hp;
         hpSlider = GetComponentInChildren<Slider>();
-	}
+        basicspeed = speed;
+        StartCoroutine(Func());
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -69,5 +73,15 @@ public class Enemy : MonoBehaviour {
         Destroy(effect, 1.5f);
         Destroy(this.gameObject);
     }
+    // ---------------------------------------邱天 add  每个一段时间判断是否被减速-------------------------------------------------------
+    IEnumerator Func()
+    {
+        while (true)// or for(i;i;i)
+        {
+            speed = GlobalRate.speedRate * basicspeed;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    // ---------------------------------------邱天 add  每个一段时间判断是否被减速-------------------------------------------------------
 
 }

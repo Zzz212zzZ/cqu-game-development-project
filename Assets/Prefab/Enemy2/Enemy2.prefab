@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 114634736795765222}
   m_Layer: 9
   m_Name: Enemy2
-  m_TagString: Enemy
+  m_TagString: enm2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -432,7 +432,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670553079308220}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  basicspeed: 0
   hp: 150
   explosionEffect: {fileID: 1837583411409002, guid: 0eb7f4b5477953c4db368c6d0eb9ee25,
     type: 3}

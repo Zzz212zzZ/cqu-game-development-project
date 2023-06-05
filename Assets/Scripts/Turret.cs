@@ -7,14 +7,14 @@ public class Turret : MonoBehaviour {
     private List<GameObject> enemys = new List<GameObject>();
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Enemy")
+        if (col.tag == "enm1" || col.tag=="enm2"|| col.tag=="enm3" || col.tag=="enm4")
         {
             enemys.Add(col.gameObject);
         }
     }
     void OnTriggerExit(Collider col)
     {
-        if (col.tag == "Enemy")
+        if (col.tag == "enm1" || col.tag == "enm2" || col.tag == "enm3" || col.tag == "enm4")
         {
             enemys.Remove(col.gameObject);
         }
@@ -37,6 +37,10 @@ public class Turret : MonoBehaviour {
 
     public GameObject laserEffect;
 
+    public GameObject ExpEffect;
+
+    public bool isfrozen = false;
+
     void Start()
     {
         timer = attackRateTime;
@@ -47,6 +51,7 @@ public class Turret : MonoBehaviour {
 
     void Update()
     {
+        if (!isfrozen)
         if (enemys.Count > 0 && enemys[0] != null)
         {
             Vector3 targetPosition = enemys[0].transform.position;
@@ -130,5 +135,27 @@ public class Turret : MonoBehaviour {
             attackRateTime = GlobalRate.turrentRate * basicAttackRateTime;
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    //edit by zlt 实现了防御塔炸毁和被冻结
+    public void Die()
+    {
+        GameObject effect = GameObject.Instantiate(ExpEffect, transform.position, transform.rotation);
+        Destroy(effect, 1.5f);
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator ResetBool()
+    {
+        // 等待3秒钟
+        yield return new WaitForSeconds(3f);
+
+        isfrozen = false;
+    }
+
+    public void Freeze()
+    {
+        isfrozen = true;
+        StartCoroutine(ResetBool());
     }
 }

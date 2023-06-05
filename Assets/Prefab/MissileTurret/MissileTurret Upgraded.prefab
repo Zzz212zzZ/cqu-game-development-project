@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 114465119098389158}
   m_Layer: 10
   m_Name: MissileTurret Upgraded
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,14 +226,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRateTime: 0.5
+  basicAttackRateTime: 0
   bulletPrefab: {fileID: 1615099413399838, guid: 93304e8b82ad3fe46995862d2f7def09,
     type: 3}
   firePosition: {fileID: 4541955090800148}
   head: {fileID: 4871146342251930}
   useLaser: 0
   damageRate: 70
+  basicDamageRate: 0
   laserRenderer: {fileID: 0}
   laserEffect: {fileID: 0}
+  ExpEffect: {fileID: 1837583411409002, guid: d13abb511bfb58b409ba925ae43e735b, type: 3}
+  isfrozen: 0
 --- !u!1 &1985136983551528
 GameObject:
   m_ObjectHideFlags: 0
